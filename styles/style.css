@@ -1,4 +1,4 @@
-#background {
+.background {
   background-image: url("../images/world.jpg");
   background-size: cover;
   background-attachment: fixed;
@@ -8,84 +8,34 @@
   margin: 0;
   visibility: visible;
   position: fixed;
+  opacity: 0.2;
 }
-#dark-bg {
-  height: 100vh;
-  width: 100%;
-  position: fixed;
-  background-color: black;
-  opacity: 0.8;
-  top: 0;
-  left: 0;
-  transition: all .6s;
-  transform: translateX(-120vw);
-  visibility: hidden;
-}
-
-#entry {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  height: 100vh;
+.site {
   color: black;
-  position: relative;
-  transition: all .4s;
-  z-index: 10;
-  animation-name: intro-content;
-  animation-duration: 1.4s;
-  animation-delay: .1s;
-  animation-fill-mode: both;
-}
-#entry h1 {
-  font-size: 55px;
-  margin-bottom: 1px;
-  animation-name: intro-header;
-  animation-duration: 1s;
-  animation-delay: .1s;
-}
-#entry p {
-  width: 800px;
-  text-align: center;
-  line-height: 190%;
-}
-#entry button {
-  color: black;
-  background-color: white;
-  padding: .6em 4.2em;
-  border-radius: 6px;
-  margin-top: 0.875rem;
-}
-#entry button:hover {
-  opacity: .8;
-}
-
-#site {
-  color: white;
   font-weight: bold;
-  visibility: hidden;
+  visibility: visible;
   overflow: hidden;
   position: absolute;
   top: 0;
   left: 0;
 }
 
-#navigation {
+.navigation {
   background-color: black;
   overflow: hidden;
   z-index: 1000;
 }
 
-#navigation a {
+.navigation a {
   float: left;
   color: white;
   text-align: center;
-  padding: 14px 100px;
+  padding: 14px 150px;
   text-decoration: none;
   font-size: 17px;
 }
 
-#navigation a:hover {
+.navigation a:hover {
   background-color: white;
   color: black;
 }
