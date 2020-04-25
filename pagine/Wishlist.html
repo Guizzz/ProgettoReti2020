@@ -4,6 +4,10 @@
     <meta charset="utf-8">
     <title>Wishlist</title>
     <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/wishlist.css">
+    <script type="text/javascript" src="../scripts/wishlist.js"></script>
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   </head>
   <body>
     <div class="background"></div>
@@ -11,21 +15,60 @@
       <section class="navigation">
           <nav>
             <a href="../index.html">Home</a>
+            <a href="Viaggi.html">I miei viaggi</a>
             <a href="Contatti.html">Contatti</a>
             <a href="Login.html">Login</a>
             <a href="Registrazione.html">Registrazione</a>
           </nav>
       </section>
-      <h1>Questa è la tua WishList!</h1>
-      <p>Scrivi dove desideri andare e realizza i tuoi sogni!</p>
-      <div class="input">
-        <input type="text" name="luoghi" placeholder="Dove vuoi andare?">
-        <label>Premi Enter per aggiungere alla lista</label>
+      <div id="first">
+        <h1>Benvenuto nella tua WishList!</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
       </div>
+      <article class="headers">
+        <header>
+          <div>
+            <h1>Viaggi nel cassetto</h1>
+            <h2 id = "todo">0</h2>
+          </div>
+          <div>
+            <h1>Viaggi completati</h1>
+            <h2 id="done">0</h2>
+          </div>
+        </header>
+      </article>
+      <div class="luoghi">
+        <input type="text" id="input" maxlength="58" onclick="viewLabel();" onkeypress="log();" placeholder="Dove vuoi andare?">
+        <label id="label" >Premi Enter per aggiungere alla lista</label>
 
       <ul id = "lista">
-
+        <li>prova1</li>
+        <li>prova2</li>
+        <li>prova2</li>
+        <li>prova2</li>
+        <li>prova2</li>
+        <li>prova1</li>
+        <li>prova2</li>
+        <li>prova2</li>
+        <li>prova2</li>
+        <li>prova2</li>
+        <li>prova1</li>
+        <li>prova2</li>
+        <li>prova2</li>
+        <li>prova2</li>
+        <li>prova2</li>
+        <li>prova1</li>
+        <li>prova2</li>
+        <li>prova2</li>
+        <li>prova2</li>
+        <li>prova2</li>
+        <li>prova1</li>
+        <li>prova2</li>
+        <li>prova2</li>
+        <li>prova2</li>
+        <li>prova2</li>
       </ul>
+    </div>
     </section>
   </body>
 </html>
