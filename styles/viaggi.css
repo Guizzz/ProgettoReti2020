@@ -8,3 +8,16 @@
 .lista li {
   padding-top: 30px;
 }
+
+#mappa {
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+
+  justify-content: center;
+}
+#mappa #map {
+  align-items: center;
+  height: 600px;
+  width: 60%;
+}
