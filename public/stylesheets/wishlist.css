@@ -52,17 +52,10 @@
   opacity: 0.8;
 }
 
-.luoghi label{
+.viaggi label{
   font-size: 15px;
+  padding-bottom: 20px;
   font-weight: normal;
   color: grey;
   visibility: hidden;
-}
-
-.luoghi li {
-  font-size: 25px;
-  font-weight: bold;
-  font-family: sans-serif;
-  padding-top: 25px;
-  list-style-type: none;
 }
