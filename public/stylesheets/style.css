@@ -49,14 +49,14 @@
   color: black;
 }
 
-.lista {
+#lista {
   height: 40vh;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   width: 80vw;
 }
-.lista li {
+#lista li {
   margin-right: 60px;
   margin-bottom: 50px;
   font-size: 25px;
