@@ -6,7 +6,6 @@ function trigger(){
     input.addEventListener("keyup", function(event) {
     if (event.keyCode === 13) {
       if(input.value){
-        console.log("ciao");
         val = input.value.toUpperCase();
         input.value = "";
         document.getElementById("lista").innerHTML += "<li>"+val+"</li>";

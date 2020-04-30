@@ -71,3 +71,20 @@
   padding: 10px;
   padding-left: 3vw;
 }
+
+#input {
+  margin-top: 10px;
+  font-size: 25px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  opacity: 0.8;
+}
+
+.viaggi label{
+  font-size: 15px;
+  padding-bottom: 20px;
+  font-weight: normal;
+  color: grey;
+  visibility: hidden;
+}
