@@ -9,6 +9,11 @@
     <script type="text/javascript" src = "javascripts/map.js"></script>
     <script
     src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script>
+      $(document).ready(function(){
+        get_pos(); 
+      });
+    </script>
   </head>
   <body>
     <div class="background"></div>
@@ -27,7 +32,6 @@
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
       </section>
     <section class="mappa">
-      <button id="btn" type="button" name="button" onclick="add_marker();">Clicca Qui!</button>
       <div id="map"></div>
     </section>
       <div class="viaggi">
@@ -42,7 +46,7 @@
         <ul id= "lista">
           <% name.forEach(function(name){ %>
             <% if(name.value.date != null){ %>
-              <li><%= name.id %></li>
+              <li class="pos"><%= name.id %></li>
               <% } %>
           <% }); %>
         </ul>

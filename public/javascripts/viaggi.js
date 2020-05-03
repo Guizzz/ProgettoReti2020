@@ -15,23 +15,22 @@ function view_map(){
   add_marker(0,0);
 }
 
-function add_marker(){
-  const options = {
-    method: "GET",
-    headers: {
-      'Content-Type': 'application/json'
+async function get_pos(){
+    var res = await fetch("/viaggi/positions");
+    var body = await res.json();
+    for(var i = 0; i < body.data.length; i++){
+      add_marker(body.data[i].value.lat, body.data[i].value.lng);
     }
   }
-  fetch('viaggi/get_position', options).then(function(res){
-    console.log(res);
-  });
-  // const res = await fetch('viaggi/get_position');
-  // console.log(res.body);
+
+
+
+function add_marker(lat, lng){
   var marker = new google.maps.Marker({
     map: map,
     position: {
-      lat: 0,
-      lng: 0
+      lat: lat,
+      lng: lng
     }
   });
 }

@@ -36,11 +36,3 @@ async function update_travel(id, rev){
   };
   const res = await fetch('wishlist/update_wish', options);
 }
-
-function prova(){
-  var d = new Date();
-  var giorno = d.getDate();
-  var mese = d.getMonth();
-  var anno = d.getFullYear();
-  console.log("giorno: "+giorno + " anno: "+anno + " mese: "+mese);
-}

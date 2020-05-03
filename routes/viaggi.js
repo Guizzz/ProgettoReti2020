@@ -23,22 +23,17 @@ router.get('/', function(req, res, next) {
   });
 });
 
-// router.get('/get_position', function(req, res, next) {
-//   couch.get(dbName, viewUrl).then(({data, headers, status}) => {
-//     if(data.total_rows != 0){
-//       res.send({
-//       name: "ciao",
-//       int: 2
-//     });
-//       // res.send(data.total_rows);
-//       // res.render('viaggi', {name: data.rows, API: "AIzaSyAx4VHsf6GzeojgnmiZna1ttmRLD1bX_UA"});
-//     } else
-//       res.send("ciao");
-//         // res.render('viaggi', {name: [], API: "AIzaSyAx4VHsf6GzeojgnmiZna1ttmRLD1bX_UA"});
-//   }, err => {
-//     console.log(err);
-//   });
-// });
+router.get('/positions', function(req, res) {
+  console.log("sono qui");
+  couch.get(dbName, viewUrl).then(({data, headers, status}) => {
+    if(data.total_rows != 0){
+        res.send({data: data.rows});
+      }
+  }, err => {
+    console.log(err);
+    res.end();
+  });
+});
 
 
 router.post("/add_travel/", async function(req, res){
