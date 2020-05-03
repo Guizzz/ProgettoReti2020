@@ -88,3 +88,35 @@
   color: grey;
   visibility: hidden;
 }
+
+.form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+}
+
+.section .sub_section {
+  display: flex;
+  flex-direction: row;
+}
+.section .sub_section button{
+  margin: 4px;
+  background: transparent;
+  /* max-width: 30px; */
+  max-height: 30px;
+  border-radius: 20px;
+  border-style: solid;
+}
+
+.section .sub_section button:hover{
+  opacity: 0.6;
+}
+
+#lista li {
+  margin: 8px; 
+}

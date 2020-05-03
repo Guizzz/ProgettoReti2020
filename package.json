@@ -6,11 +6,17 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "connect": "^3.7.0",
     "cookie-parser": "~1.4.4",
+    "couch-db": "^1.1.3",
     "debug": "~2.6.9",
     "ejs": "~2.6.1",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "nano": "^8.2.2",
+    "nedb": "^1.8.0",
+    "node-couchdb": "^1.3.0",
+    "node-fetch": "^2.6.0"
   }
 }

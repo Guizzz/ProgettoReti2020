@@ -36,28 +36,6 @@
   text-align: center;
 }
 
-/* .luoghi {
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  padding-left: 3vw;
-} */
-
-/* #input {
-  font-size: 25px;
-  background-color: transparent;
-  border: none;
-  outline: none;
-  opacity: 0.8;
-}
-
-.viaggi label{
-  font-size: 15px;
-  padding-bottom: 20px;
-  font-weight: normal;
-  color: grey;
-  visibility: hidden;
-} */
 
 #media{
   display: flex;
@@ -72,10 +50,15 @@
   font-weight: bold;
   text-align: center;
 }
-#media .immagini {
+#media #immagini {
   align-self: center;
   height: 40vh;
   width: 90vw;
   overflow: scroll;
   scroll-behavior: smooth;
+}
+
+img {
+  max-width: 600px;
+  max-height: 200px;
 }

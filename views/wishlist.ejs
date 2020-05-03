@@ -8,6 +8,22 @@
     <script type="text/javascript" src="javascripts/wishlist.js"></script>
     <script
     src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script>
+    $(document).ready(function(){
+      $(".del").click(function(){
+        var id_rev = this.name.split("/");
+        var id = id_rev[0];
+        var _rev = id_rev[1];
+        del_travel(id, _rev);
+      });
+      $(".up").click(function(){
+        var id_rev = this.name.split("/");
+        var id = id_rev[0];
+        var _rev = id_rev[1];
+        update_travel(id, _rev);
+      });
+    });
+    </script>
   </head>
   <body>
     <div class="background"></div>
@@ -29,30 +45,42 @@
         <header>
           <div>
             <h1>Viaggi nel cassetto</h1>
-            <h2 id = "todo">0</h2>
+            <h2 id = "todo"><%= todo %></h2>
           </div>
           <div>
             <h1>Viaggi completati</h1>
-            <h2 id="done">0</h2>
+            <h2 id="done"><%= completed %></h2>
           </div>
         </header>
       </article>
       <div class="viaggi">
-        <input type="text" id="input" maxlength="58" onclick="viewLabel(); trigger();" placeholder="Dove vuoi andare?">
-        <label id="label" >Premi Enter per aggiungere alla lista</label>
+        <form class="form" action="/wishlist/add_wish/" method="post">
+
+          <input type="text" name="citta" id="input" maxlength="58" onmouseout="hideLabel();" onmouseover="viewLabel();" placeholder="Dove vuoi andare?">
+          <label id="label" >Premi Enter per aggiungere alla lista</label>
+        </form>
 
         <ul id = "lista">
+            <% name.forEach(function(name){ %>
+              <% if(name.value.date == null){ %>
 
+              <div class="section">
+                <li><%= name.id %></li>
+                <div class="sub_section">
+                  <button class="up" type="button" name="<%= name.id %>/<%= name.key %>">Completa</button>
+                  <button class="del" type="button" name="<%= name.id %>/<%= name.key %>">Elimina</button>
+                </div>
+              </div>
+                <% } %>
+            <% }); %>
         </ul>
       </div>
       <section id="media">
-        <h1>Qui potrai vedere le foto della città nella tua lista!</h1>
-        <div class="immagini">
-          <img src="images/instagram.png" alt="">
-          <img src="images/instagram.png" alt="">
-          <img src="images/instagram.png" alt="">
-          <img src="images/instagram.png" alt="">
-          <img src="images/instagram.png" alt="">
+        <h1">Qui potrai vedere le foto della città nella tua lista!</h1>
+        <div id="immagini">
+          <% name.forEach(function(name){ %>
+            <img src="<%= name.value.foto %>"></img>
+          <% }); %>
         </div>
       </section>
     </section>
