@@ -23,13 +23,28 @@ function view_map(){
   $("#map").css("width", "60vw");
   add_marker(0,0);
 }
-
+async function del_travel(id, rev,citta){
+  var data = {
+    id: id,
+    rev: rev,
+    citta:citta
+  };
+  const options = {
+    method: "DELETE",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  };
+  const res = await fetch('viaggi/del_viaggio', options);
+ 
+}
 async function get_pos(){
     var res = await fetch("/viaggi/positions");
     var body = await res.json();
-    for(var i = 0; i < body.data.length; i++){
-      add_marker(body.data[i]);
-    }
+    body.data.forEach((doc)=>{
+      add_marker(doc);
+    });
   }
 
 
@@ -39,12 +54,12 @@ function add_marker(data){
   var marker = new google.maps.Marker({
     map: map,
     position: {
-      lat: data.value.lat,
-      lng: data.value.lng
+      lat: data.lat,
+      lng: data.lng
     }
 
   });
-  var text = "Sei stato a "+data.id+" il giorno: "+data.value.date;
+  var text = "Sei stato a "+data.citta+" il giorno: "+data.date;
   var infowindow = new google.maps.InfoWindow({
     content: text
   });

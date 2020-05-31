@@ -120,3 +120,14 @@
 #lista li {
   margin: 8px; 
 }
+.navbar {
+  width: 100vw;
+  height: auto;
+  margin-bottom: 20px;
+}
+.navbar-expand-lg{
+  width: 100vw;
+}
+.navbar-brand:hover{
+  opacity: 0.5;
+}

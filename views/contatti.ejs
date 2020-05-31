@@ -14,8 +14,15 @@
             <a href="/">Home</a>
             <a href="wishlist">WhishList</a>
             <a href="viaggi">I miei viaggi</a>
-            <a href="login">Login</a>
-            <a href="registrazione">Registrazione</a>
+            <% if(cookie==null){ %>
+              <a href="login">Login</a>
+              <a href="registrazione">Registrazione</a>
+                <% } %>
+                
+            <% if(cookie) { %>
+                  <a href="login/logout">Logout</a>
+    
+                <% } %>
           </nav>
       </section>
       <section id="contatti">

@@ -7,10 +7,11 @@ function hideLabel(){
   $("#label").css("visibility", "hidden");
 }
 
-async function del_travel(id, rev){
+async function del_travel(id, rev,citta){
   var data = {
     id: id,
-    rev: rev
+    rev: rev,
+    citta:citta
   };
   const options = {
     method: "DELETE",
@@ -20,12 +21,14 @@ async function del_travel(id, rev){
     body: JSON.stringify(data)
   };
   const res = await fetch('wishlist/del_wish', options);
+ 
 }
 
-async function update_travel(id, rev){
+async function update_travel(id, rev,citta){
   var data = {
     id: id,
-    rev: rev
+    rev: rev,
+    citta: citta
   };
   const options = {
     method: "PUT",

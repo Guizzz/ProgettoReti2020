@@ -11,16 +11,19 @@
     <script>
     $(document).ready(function(){
       $(".del").click(function(){
-        var id_rev = this.name.split("/");
-        var id = id_rev[0];
-        var _rev = id_rev[1];
-        del_travel(id, _rev);
+        var id = this.id;
+        var _rev= this.value;
+        var citta= this.name;
+        console.log("Ecco la citta: "+citta);
+        del_travel(id,_rev,citta);
+
       });
       $(".up").click(function(){
-        var id_rev = this.name.split("/");
-        var id = id_rev[0];
-        var _rev = id_rev[1];
-        update_travel(id, _rev);
+        var id = this.id;
+        var _rev= this.value;
+        var citta= this.name;
+        console.log("Ecco la citta: "+citta);
+        update_travel(id, _rev,citta);
       });
     });
     </script>
@@ -33,13 +36,22 @@
             <a href="/">Home</a>
             <a href="viaggi">I miei viaggi</a>
             <a href="contatti">Contatti</a>
-            <a href="login">Login</a>
-            <a href="registrazione">Registrazione</a>
+            <% if(cookie==null){ %>
+              <a href="login">Login</a>
+              <a href="registrazione">Registrazione</a>
+                <% } %>
+                
+            <% if(cookie) { %>
+                  <a href="login/logout">Logout</a>
+    
+                <% } %>
+            
           </nav>
       </section>
       <div id="first">
         <h1>Benvenuto nella tua WishList!</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>Chi non ha un viaggio che ha sempre sognato di fare, una meta preferita o una città che ha sempre voluto visitare. Questo è il posto giusto per annotarli! Inserisci qui le vacanze dei tuoi sogni e quando le avrai finalmente fatte ti basterà cliccare su "completa" per inserirla automaticamente tra i viaggi effettuati!</p>
+
       </div>
       <article class="headers">
         <header>
@@ -61,14 +73,14 @@
         </form>
 
         <ul id = "lista">
-            <% name.forEach(function(name){ %>
-              <% if(name.value.date == null){ %>
+          <% name.forEach((doc)=>{ %>
+            <% if(doc.date == null){ %>
 
               <div class="section">
-                <li><%= name.id %></li>
+                <li><%= doc.citta %></li>
                 <div class="sub_section">
-                  <button class="up" type="button" name="<%= name.id %>/<%= name.key %>">Completa</button>
-                  <button class="del" type="button" name="<%= name.id %>/<%= name.key %>">Elimina</button>
+                  <button class="up" type="button" id= "<%= doc._id %>" name="<%= doc.citta %>" value="<%= doc._rev%>">Completa</button>
+                  <button class="del" type="button" id= "<%= doc._id %>" name="<%= doc.citta %>" value="<%= doc._rev%>">Elimina</button>
                 </div>
               </div>
                 <% } %>
@@ -78,9 +90,11 @@
       <section id="media">
         <h1">Qui potrai vedere le foto della città nella tua lista!</h1>
         <div id="immagini">
-          <% name.forEach(function(name){ %>
-            <img src="<%= name.value.foto %>"></img>
-          <% }); %>
+          <% if(name.length!=0){ %>
+              <% name.forEach((doc)=>{ %>
+                <img src="<%= doc.foto %>"></img>
+              <% }); %>
+          <% } %>
         </div>
       </section>
     </section>

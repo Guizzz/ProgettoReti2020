@@ -12,6 +12,15 @@
     <script>
       $(document).ready(function(){
         get_pos(); 
+        
+      $(".del").click(function(){
+        var id = this.id;
+        var _rev= this.value;
+        var citta= this.name;
+        console.log("Ecco la citta: "+citta);
+        del_travel(id,_rev,citta);
+
+      });
       });
     </script>
   </head>
@@ -23,13 +32,21 @@
           <a href="/">Home</a>
           <a href="wishlist">WishList</a>
           <a href="contatti">Contatti</a>
-          <a href="login">Login</a>
-          <a href="registrazione">Registrazione</a>
+          <% if(cookie==null){ %>
+            <a href="login">Login</a>
+            <a href="registrazione">Registrazione</a>
+              <% } %>
+              
+          <% if(cookie) { %>
+                <a href="login/logout">Logout</a>
+  
+              <% } %>
         </nav>
       </section>
       <section class="first">
         <h1>I tuoi viaggi!</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>Qui potrai inserire i viaggi che hai fatto. Ognuno di questi apparirà poi sulla mappa. Cosa aspetti? Prova a completare il mappamondo!</p>
+
       </section>
     <section class="mappa">
       <div id="map"></div>
@@ -44,9 +61,14 @@
 
 
         <ul id= "lista">
-          <% name.forEach(function(name){ %>
-            <% if(name.value.date != null){ %>
-              <li class="pos"><%= name.id %></li>
+          <% name.forEach((doc)=>{ %>
+            <% if(doc.date != null){ %>
+              <div class="section">
+                <li><%= doc.citta %></li>
+                <div class="sub_section">
+                  <button class="del" type="button" id= "<%= doc._id %>" name="<%= doc.citta %>" value="<%= doc._rev%>">Elimina</button>
+                </div>
+              </div>
               <% } %>
           <% }); %>
         </ul>

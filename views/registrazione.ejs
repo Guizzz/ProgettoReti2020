@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width-decvice-width, initial-scale=1" >
+        <title>Registrazione</title>
+        <script type="text/javascript" src="../javascripts/control.js"></script>
+        <link rel="stylesheet" type="text/css" href="../stylesheets/css/bootstrap.min.css">
+        <link rel="stylesheet" href="../stylesheets/index.css">
+        <link rel="stylesheet" href="../stylesheets/registrazione.css">
+        <link rel="stylesheet" href="../stylesheets/style.css">
+
+    </head>
+
+    <body>
+        <div class="background"></div>
+        <section class= "site">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+              <div class="container">
+                <a class="navbar-brand" href="/">Home</a>
+                <a class="navbar-brand" href="wishlist">Wishlist</a>
+                <a class="navbar-brand" href="viaggi">I miei viaggi</a>
+                <a class="navbar-brand" href="contatti">Contatti</a>
+                <a class="navbar-brand" href="login">Login</a>
+              </div>
+            </nav>
+        <main>
+            <section class="first">
+               
+            <h1 class="d">Benvenuto nella pagina di registrazione</h1>
+            <p class="d">
+                 Con pochi semplici passi potrai registrarti al nostro sito e beneficiare dei servizi riservati
+                agli utenti registrati.
+            </p>
+            <form class="my_form" action="registrazione/nuovo_utente" method="POST"  name="form_registrazione" onsubmit="return validaForm()">
+              <h3>Inserisci qui i tuoi dati!</h3>
+              <div class="form-group">
+                <input class="form-control" type="text" name="nome" size="50" maxlength="30" autofocus placeholder="Nome" required>
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="cognome" size="50" maxlength="30" placeholder="Cognome" required>
+              </div>
+              <div class="form-group">
+                <input type="email" class="form-control" name="mail" size="50" maxlength="30" placeholder="e-mail" required>
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="text" name="paese" size="50" maxlength="30" placeholder="Paese di nascita" required>
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="password" name="password1" size="50" maxlength="30" placeholder="Password" required>
+              </div>
+              <div class="form-group">
+                <input class="form-control" type="password" name="password2" size="50" maxlength="30" placeholder="Conferma password" required>
+              </div>
+              <button name="submit_button" class="btn btn-primary">Invia</button>
+            </form>
+          </section>
+        </main>
+      </section>
+    </body>
+</html>

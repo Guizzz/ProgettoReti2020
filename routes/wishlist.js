@@ -2,18 +2,18 @@ var express = require('express');
 var router = express.Router();
 const fetch = require("node-fetch");
 const NodeCouchdb = require('node-couchdb');
-
+var nano = require('nano')('http://admin:biar@localhost:5984');
+const db_viaggi = nano.use('citta');
 const couch = new NodeCouchdb({
 auth:{
 user: 'admin',
-password: 'Reti2020'
+password: 'biar'
 }
 });
 
 const dbName = "citta";
 const viewUrl = "_design/citta/_view/cities";
-var todo = 0;
-var completed = 0;
+
 // couch.listDatabases().then(function(dbs){
 //   console.log(dbs);
 // });
@@ -21,58 +21,119 @@ var completed = 0;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  couch.get(dbName, viewUrl).then(({data, headers, status}) => {
+  if(req.cookies['username']){
+    console.log(req.cookies['username']);
+    const q = {
+      selector: {
+        email: { "$eq": req.cookies['username']},
+      
+      },
+      fields: [ "citta","email","date","_rev","_id","foto"],
+      limit:50
+    };
+    db_viaggi.find(q).then((body) => {
+      var todo = 0;
+      var completed = 0;
+      console.log(body.docs.length);
+      body.docs.forEach((doc)=>{
+        if(doc.date == null){
+          todo+=1;
+        }
+        else {
+          completed+=1;
+        }
+      });
+  
+      var num= body.docs.length
+      if(num!=0){
+      console.log("Sono nell'if");
+      res.render('wishlist', {name: body.docs, todo: todo, completed: completed,cookie: req.cookies['username']});
+
+      }
+    else
+      res.render('wishlist', {name: [], todo: todo, completed: completed,cookie: req.cookies['username'] });
+
+    });
+}
+else {
+res.send("<a href= 'http://localhost:3000/login '>Accedi</a> o <a href= 'http://localhost:3000/registrazione'> Registrati</a>  per visualizzare i tuoi i viaggi")
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ /*couch.get(dbName, viewUrl).then(({data, headers, status}) => {
     // console.log(data.rows[0].key);
     if(data.total_rows != 0){
-      res.render('wishlist', {name: data.rows, todo: todo, completed: completed});
+      res.render('wishlist', {name: data.rows, todo: todo, completed: completed,cookie: req.cookies['username']});
     }
     else
         res.render('wishlist', {name: [], todo: todo, completed: completed});
   }, err => {
     console.log(err);
-  });
+  });*/
 });
 
 router.delete('/del_wish/', function(req, res, next) {
-  todo -=1;
+  
   var id = req.body.id;
   var rev = req.body.rev;
   console.log(id);
-  couch.del(dbName, id, rev).then(({data, headers, status}) => {
-    console.log("eliminato documento di id: "+id);
-  }, err => {
-    console.log(err);
+  db_viaggi.destroy(id,rev).then((body) => {
+    console.log(body);
+    
+    res.redirect("/wishlist");
   });
 });
 
 router.put('/update_wish/', async function(req, res, next) {
-  todo -= 1;
-  completed +=1;
-  var id = req.body.id;
+  
+  var citta = req.body.citta;
   var rev = req.body.rev;
+  var id = req.body.id;
   var d = new Date();
-  const url_pos = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input='+id+'&inputtype=textquery&fields=photos,geometry&key=AIzaSyAx4VHsf6GzeojgnmiZna1ttmRLD1bX_UA';
+  const url_pos = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input='+citta+'&inputtype=textquery&fields=photos,geometry&key=AIzaSyAx4VHsf6GzeojgnmiZna1ttmRLD1bX_UA';
   const f_res = await fetch(url_pos);
   const json = await f_res.json();
   var lat = json.candidates[0].geometry.location.lat;
   var lng = json.candidates[0].geometry.location.lng;
   var date = ""+d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
+  console.log("La città è: "+citta);
   console.log(id);
+  console.log(rev);
   couch.update(dbName, {
-    _id: id,
-    _rev: rev,
+    citta:citta,
     lat: lat,
     lng: lng,
-    date: date
+    date: date,
+    email: req.cookies['username'],
+    _id: id,
+    _rev:rev
+
   }).then(({data, headers, status}) => {
-    console.log("aggiornato elemento: "+id);
+    console.log("aggiornato elemento: "+citta);
+    res.redirect("/wishlist");
   }, err => {
     console.log(err);
   });
 });
 
 router.post("/add_wish/", async function(req, res){
-  todo+=1;
+ 
   const name = req.body.citta;
   // const url = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input='+name+'&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAx4VHsf6GzeojgnmiZna1ttmRLD1bX_UA';
   const url_pos = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input='+name+'&inputtype=textquery&fields=photos,geometry&key=AIzaSyAx4VHsf6GzeojgnmiZna1ttmRLD1bX_UA';
@@ -86,10 +147,13 @@ router.post("/add_wish/", async function(req, res){
   // var lng = json.candidates[0].geometry.location.lng;
 
   couch.uniqid().then(function(){
-    const id = name;
+    
     const obj = {
-    _id: id,
+    
+   
+    citta: name,
     date: null,
+    email: req.cookies['username'],
     // lat: lat,
     // lng: lng,
     foto: url
