@@ -16,7 +16,7 @@
         var citta= this.name;
         console.log("Ecco la citta: "+citta);
         del_travel(id,_rev,citta);
-
+        //setTimeout(location.reload(true),500);
       });
       $(".up").click(function(){
         var id = this.id;
@@ -24,6 +24,7 @@
         var citta= this.name;
         console.log("Ecco la citta: "+citta);
         update_travel(id, _rev,citta);
+        //setTimeout(location.reload(true),500);
       });
     });
     </script>

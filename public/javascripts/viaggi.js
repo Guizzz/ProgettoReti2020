@@ -23,7 +23,8 @@ function view_map(){
   $("#map").css("width", "60vw");
   add_marker(0,0);
 }
-async function del_travel(id, rev,citta){
+async function del_travel(id, rev,citta)
+{
   var data = {
     id: id,
     rev: rev,
@@ -39,6 +40,7 @@ async function del_travel(id, rev,citta){
   const res = await fetch('viaggi/del_viaggio', options);
  
 }
+
 async function get_pos(){
     var res = await fetch("/viaggi/positions");
     var body = await res.json();
@@ -49,20 +51,21 @@ async function get_pos(){
 
 
 
-function add_marker(data){
-
+function add_marker(data)
+{
   var marker = new google.maps.Marker({
     map: map,
     position: {
       lat: data.lat,
       lng: data.lng
     }
-
   });
+
   var text = "Sei stato a "+data.citta+" il giorno: "+data.date;
   var infowindow = new google.maps.InfoWindow({
     content: text
   });
+
   marker.addListener('click', function() {
     infowindow.open(map, marker);
     console.log("prova");

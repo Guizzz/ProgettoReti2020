@@ -5,7 +5,7 @@ var flag= true;
 var token='';
 var id;
 const fetch = require("node-fetch");
-var db= require('node-couchdb');
+var db = require('node-couchdb');
 var cookie_parser = require('cookie-parser');
 router.use(cookie_parser());
 var https=require('https');
@@ -22,24 +22,25 @@ router.get('/', function(req, res, next) {
 
 router.post("/login_utente/", function(req,res,next){
   
-  
   const email_= req.body.username;
   const password_= req.body.password;
-
-  const q = {
-    selector: {
+  //console.log("email:" + email_);
+  const q = 
+  {
+    selector: 
+    {
       email: { "$eq": email_}
-     
-     
     },
     fields: [ "email"],
     limit:50
   };
+
   db_sessioni.find(q).then((body) => {
     if(body.docs.length==1){
       console.log(body.docs.length);
       res.cookie('username',email_);
-      res.send("Utente già loggato, vai alla <a href='http://localhost:3000'>Home</a>");
+      //res.send("Utente già loggato, vai alla <a href='http://localhost:3000'>Home</a>");
+      res.redirect("/viaggi");
     }
     else{
       const q1 = {
@@ -52,26 +53,24 @@ router.post("/login_utente/", function(req,res,next){
       };
       db.find(q).then((body) => {
         if(body.docs.length==1){
-          console.log(body.docs.length);
+          //console.log(body.docs.length);
           db_sessioni.insert({  email : email_}).then((body) => {
             console.log(body);
             if(body.ok){
-
-                  res.cookie('username',email_);
-                  res.redirect("http://localhost:3000/viaggi");
+              res.cookie('username',email_);
+              //res.redirect("http://localhost:3000/viaggi");
+              res.redirect("/viaggi");
             }
             else{
               res.render('error');
             }
-  });
-          
+          });
         }
         else{
-          res.send("Utente non trovato, vai alla <a href='http://localhost:3000/registrazione'>Registrazione</a>");
+          //res.send("Utente non trovato, vai alla <a href='http://localhost:3000/registrazione'>Registrazione</a>");
+          res.redirect("/registrazione");
         }
-
-       
-});
+      });
     }
   });
 });

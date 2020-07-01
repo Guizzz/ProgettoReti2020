@@ -16,50 +16,50 @@ password: 'biar'
 
 router.get('/', function(req, res, next) {
   if(req.cookies['username']){
-        console.log(req.cookies['username']);
-        const q = {
-          selector: {
-            email: { "$eq": req.cookies['username']},
-           
-          },
-          fields: ["_id","citta","lat","lng","email","date","_rev"],
-          limit:50
-        };
-        db_viaggi.find(q).then((body) => {
-          console.log(body.docs.length);
-          var num= body.docs.length
-          if(num!=0){
-          console.log("Sono nell'if");
-          res.render('viaggi', {name: body.docs, API: "AIzaSyAx4VHsf6GzeojgnmiZna1ttmRLD1bX_UA",cookie: req.cookies['username']});
-          }
-        else
-            res.render('viaggi', {name: [], API: "AIzaSyAx4VHsf6GzeojgnmiZna1ttmRLD1bX_UA",cookie: req.cookies['username']});
-      
-        });
-}
+    console.log(req.cookies['username']);
+    const q = {
+      selector: {
+        email: { "$eq": req.cookies['username']},
+        
+      },
+      fields: ["_id","citta","lat","lng","email","date","_rev"],
+      limit:50
+    };
+    db_viaggi.find(q).then((body) => {
+      console.log(body.docs.length);
+      var num= body.docs.length
+      if(num!=0){
+        console.log("Sono nell'if");
+        res.render('viaggi', {name: body.docs, API: "AIzaSyAx4VHsf6GzeojgnmiZna1ttmRLD1bX_UA",cookie: req.cookies['username']});
+      }
+      else
+        res.render('viaggi', {name: [], API: "AIzaSyAx4VHsf6GzeojgnmiZna1ttmRLD1bX_UA",cookie: req.cookies['username']});
+    });
+  }
   else {
     res.send("<a href= 'http://localhost:3000/login '>Accedi</a> o <a href= 'http://localhost:3000/registrazione'> Registrati</a>  per visualizzare i tuoi i viaggi")
   }
 });
 
 router.get('/positions', function(req, res) {
-  console.log("sono qui");
-  console.log(req.cookies['username']);
-        const q = {
-          selector: {
-            email: { "$eq": req.cookies['username']},
-           
-          },
-          fields: [ "citta","lat","lng","email","date",],
-          limit:50
-        };
-        db_viaggi.find(q).then((body) => {
-          console.log(body.docs.length);
-          var num= body.docs.length
-          if(num!=0){
-            res.send({data: body.docs});
-          }
-        });
+  //console.log("sono qui");
+  //console.log(req.cookies['username']);
+  const q = {
+    selector: {
+      email: { "$eq": req.cookies['username']},
+      
+    },
+    fields: [ "citta","lat","lng","email","date",],
+    limit:50
+  };
+  db_viaggi.find(q).then((body) => {
+    console.log(body.docs.length);
+    var num= body.docs.length
+    if(num!=0){
+      res.send({data: body.docs});
+      console.log({data: body.docs});
+    }
+  });
 
 
  /* couch.get(dbName, viewUrl).then(({data, headers, status}) => {
@@ -111,15 +111,13 @@ router.post("/add_travel/", async function(req, res){
 
 router.delete("/del_viaggio",function(req,res){
   var id = req.body.id;
-    var rev = req.body.rev;
-    console.log(id);
-    console.log(rev);
-    db_viaggi.destroy(id,rev).then((body) => {
-      console.log(body);
-     res.redirect(303,"http://localhost:3000/viaggi");
-    }); 
-    ;
-     
+  var rev = req.body.rev;
+  console.log(id);
+  console.log(rev);
+  db_viaggi.destroy(id,rev).then((body) => {
+    console.log(body);
+    res.redirect(303,"http://localhost:3000/viaggi");
+  });
 });
 
 module.exports = router;

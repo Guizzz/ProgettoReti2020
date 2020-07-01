@@ -10,17 +10,17 @@
     <script
     src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script>
+      //location.reload(true);
       $(document).ready(function(){
         get_pos(); 
-        
-      $(".del").click(function(){
-        var id = this.id;
-        var _rev= this.value;
-        var citta= this.name;
-        console.log("Ecco la citta: "+citta);
-        del_travel(id,_rev,citta);
-
-      });
+        $(".del").click(function(){
+          var id = this.id;
+          var _rev= this.value;
+          var citta= this.name;
+          console.log("Ecco la citta: "+citta);
+          del_travel(id,_rev,citta);
+          //setTimeout(location.reload(true),500);
+        });
       });
     </script>
   </head>

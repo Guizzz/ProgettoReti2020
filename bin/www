@@ -1,12 +1,15 @@
 #!/usr/bin/env node
 
+
 /**
  * Module dependencies.
  */
 
 var app = require('../app');
+var chat = require('./chat');
 var debug = require('debug')('progettoreti2020:server');
 var http = require('http');
+var webSocketServer = require('websocket').server;
 
 /**
  * Get port from environment and store in Express.
@@ -25,9 +28,23 @@ var server = http.createServer(app);
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
+server.listen(port, function() {
+  console.log((new Date()) + " Server is listening on port " + port);
+});
+
+var wsServer = new webSocketServer({
+  httpServer: server
+});
+
+
+// This callback function is called every time someone
+// tries to connect to the WebSocket server
+wsServer.on('request',chat );
+
+
 server.on('error', onError);
 server.on('listening', onListening);
+
 
 /**
  * Normalize a port into a number, string, or false.

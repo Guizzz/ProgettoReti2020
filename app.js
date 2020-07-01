@@ -10,6 +10,7 @@ var viaggiRouter = require('./routes/viaggi');
 var contattiRouter = require('./routes/contatti');
 var loginRouter = require('./routes/login');
 var registrazioneRouter = require('./routes/registrazione');
+var charRouter = require('./routes/webChat');
 
 var app = express();
 
@@ -29,6 +30,7 @@ app.use('/viaggi', viaggiRouter);
 app.use('/contatti', contattiRouter);
 app.use('/login', loginRouter);
 app.use('/registrazione', registrazioneRouter);
+app.use('/chat', charRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

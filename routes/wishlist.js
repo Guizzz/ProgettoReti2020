@@ -46,34 +46,16 @@ router.get('/', function(req, res, next) {
   
       var num= body.docs.length
       if(num!=0){
-      console.log("Sono nell'if");
-      res.render('wishlist', {name: body.docs, todo: todo, completed: completed,cookie: req.cookies['username']});
-
+        console.log("Sono nell'if");
+        res.render('wishlist', {name: body.docs, todo: todo, completed: completed,cookie: req.cookies['username']});
       }
-    else
-      res.render('wishlist', {name: [], todo: todo, completed: completed,cookie: req.cookies['username'] });
-
+      else
+        res.render('wishlist', {name: [], todo: todo, completed: completed,cookie: req.cookies['username'] });
     });
-}
-else {
-res.send("<a href= 'http://localhost:3000/login '>Accedi</a> o <a href= 'http://localhost:3000/registrazione'> Registrati</a>  per visualizzare i tuoi i viaggi")
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  }
+  else {
+    res.send("<a href= 'http://localhost:3000/login '>Accedi</a> o <a href= 'http://localhost:3000/registrazione'> Registrati</a>  per visualizzare i tuoi i viaggi")
+  }
 
 
  /*couch.get(dbName, viewUrl).then(({data, headers, status}) => {
@@ -95,8 +77,7 @@ router.delete('/del_wish/', function(req, res, next) {
   console.log(id);
   db_viaggi.destroy(id,rev).then((body) => {
     console.log(body);
-    
-    res.redirect("/wishlist");
+    res.redirect(303,"http://localhost:3000/wishlist");
   });
 });
 
@@ -126,7 +107,7 @@ router.put('/update_wish/', async function(req, res, next) {
 
   }).then(({data, headers, status}) => {
     console.log("aggiornato elemento: "+citta);
-    res.redirect("/wishlist");
+    res.redirect(303,"http://localhost:3000/wishlist");
   }, err => {
     console.log(err);
   });

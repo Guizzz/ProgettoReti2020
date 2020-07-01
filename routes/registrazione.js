@@ -32,7 +32,6 @@ const q = {
 };
 db.find(q).then((body) => {
   body.docs.forEach((doc) => {
-  
     console.log(doc.nome);
 });
 });
@@ -55,20 +54,20 @@ router.post("/nuovo_utente/", async function(req,res,next){
   const q = {
     selector: {
       email: { "$eq": email_},
-     
     },
     fields: [ "email"],
     limit:50
   };
   db.find(q).then((body) => {
-    if(body.docs==1){
+    if(body.docs.length==1){
       console.log(body.docs.length);
       res.send("Esiste già un Account associato a questa email, torna al <a href='http://localhost:3000/login'>Login</a>");
     }
     else{
        db.insert({ nome: nome_, cognome : cognome_ ,email : email_,paese :paese_, password: password_ }).then((body) => {
       if(body.ok){
-            res.redirect("http://localhost:3000/login");
+            //res.redirect("http://localhost:3000/login");
+            res.redirect('/login');
       }
       else{
         res.render('error');
