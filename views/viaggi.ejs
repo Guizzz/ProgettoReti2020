@@ -7,18 +7,19 @@
     <link rel="stylesheet" href="stylesheets/viaggi.css">
     <script type="text/javascript" src = "javascripts/viaggi.js"></script>
     <script type="text/javascript" src = "javascripts/map.js"></script>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/css/bootstrap.min.css">
     <script
     src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script>
       //location.reload(true);
       $(document).ready(function(){
-        get_pos(); 
+        get_pos();
         $(".del").click(function(){
           var id = this.id;
           var _rev= this.value;
           var citta= this.name;
           console.log("Ecco la citta: "+citta);
-          del_travel(id,_rev,citta);
+          del_travel(id,_rev,citta).then((x)=>window.location.reload());
           //setTimeout(location.reload(true),500);
         });
       });
@@ -27,22 +28,22 @@
   <body>
     <div class="background"></div>
     <section class="site">
-      <section class="navigation">
-        <nav>
-          <a href="/">Home</a>
-          <a href="wishlist">WishList</a>
-          <a href="contatti">Contatti</a>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <a class="navbar-brand" href="/">Home</a>
+          <a class="navbar-brand" href="/wishlist">WishList</a>
+          <a class="navbar-brand" href="/contatti">Contatti</a>
           <% if(cookie==null){ %>
-            <a href="login">Login</a>
-            <a href="registrazione">Registrazione</a>
-              <% } %>
-              
+            <a class="navbar-brand" href="/registrazione">Registrazione</a>
+            <a class="navbar-brand" href="/login">Login</a>
+          <% } %>
+
           <% if(cookie) { %>
-                <a href="login/logout">Logout</a>
-  
-              <% } %>
-        </nav>
-      </section>
+            <a class="navbar-brand" href="login/logout">Logout</a>
+
+          <% } %>
+        </div>
+      </nav>
       <section class="first">
         <h1>I tuoi viaggi!</h1>
         <p>Qui potrai inserire i viaggi che hai fatto. Ognuno di questi apparirà poi sulla mappa. Cosa aspetti? Prova a completare il mappamondo!</p>

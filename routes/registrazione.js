@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var nano = require('nano')('http://admin:biar@localhost:5984');
+var nano = require('nano')('http://admin:Reti2020@localhost:5984');
 const db = nano.use('utenti');
 db.info().then((body) => {
   console.log('got database info', body);
@@ -15,9 +15,9 @@ db.insert({ nome: 'Elisa', happy: false }).then((body) => {
   console.log(body)
 })*/
 db.list().then((body) => {
-  
+
   body.rows.forEach((doc) => {
-  
+
         console.log(doc);
   });
 });
@@ -25,7 +25,7 @@ db.list().then((body) => {
 const q = {
   selector: {
     nome: { "$eq": "Nello"},
-   
+
   },
   fields: [ "nome","happy"],
   limit:50
@@ -76,7 +76,6 @@ router.post("/nuovo_utente/", async function(req,res,next){
     }
   });
 });
- 
+
 
 module.exports = router;
- 

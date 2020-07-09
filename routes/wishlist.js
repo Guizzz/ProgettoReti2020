@@ -2,12 +2,12 @@ var express = require('express');
 var router = express.Router();
 const fetch = require("node-fetch");
 const NodeCouchdb = require('node-couchdb');
-var nano = require('nano')('http://admin:biar@localhost:5984');
+var nano = require('nano')('http://admin:Reti2020@localhost:5984');
 const db_viaggi = nano.use('citta');
 const couch = new NodeCouchdb({
 auth:{
 user: 'admin',
-password: 'biar'
+password: 'Reti2020'
 }
 });
 
@@ -26,7 +26,7 @@ router.get('/', function(req, res, next) {
     const q = {
       selector: {
         email: { "$eq": req.cookies['username']},
-      
+
       },
       fields: [ "citta","email","date","_rev","_id","foto"],
       limit:50
@@ -43,7 +43,7 @@ router.get('/', function(req, res, next) {
           completed+=1;
         }
       });
-  
+
       var num= body.docs.length
       if(num!=0){
         console.log("Sono nell'if");
@@ -71,7 +71,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.delete('/del_wish/', function(req, res, next) {
-  
+
   var id = req.body.id;
   var rev = req.body.rev;
   console.log(id);
@@ -82,7 +82,7 @@ router.delete('/del_wish/', function(req, res, next) {
 });
 
 router.put('/update_wish/', async function(req, res, next) {
-  
+
   var citta = req.body.citta;
   var rev = req.body.rev;
   var id = req.body.id;
@@ -92,7 +92,7 @@ router.put('/update_wish/', async function(req, res, next) {
   const json = await f_res.json();
   var lat = json.candidates[0].geometry.location.lat;
   var lng = json.candidates[0].geometry.location.lng;
-  var date = ""+d.getDate()+"/"+d.getMonth()+"/"+d.getFullYear()
+  var date = ""+d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear()
   console.log("La città è: "+citta);
   console.log(id);
   console.log(rev);
@@ -114,7 +114,7 @@ router.put('/update_wish/', async function(req, res, next) {
 });
 
 router.post("/add_wish/", async function(req, res){
- 
+
   const name = req.body.citta;
   // const url = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input='+name+'&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,geometry&key=AIzaSyAx4VHsf6GzeojgnmiZna1ttmRLD1bX_UA';
   const url_pos = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input='+name+'&inputtype=textquery&fields=photos,geometry&key=AIzaSyAx4VHsf6GzeojgnmiZna1ttmRLD1bX_UA';
@@ -128,10 +128,10 @@ router.post("/add_wish/", async function(req, res){
   // var lng = json.candidates[0].geometry.location.lng;
 
   couch.uniqid().then(function(){
-    
+
     const obj = {
-    
-   
+
+
     citta: name,
     date: null,
     email: req.cookies['username'],

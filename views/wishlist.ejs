@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="stylesheets/style.css">
     <link rel="stylesheet" href="stylesheets/wishlist.css">
     <script type="text/javascript" src="javascripts/wishlist.js"></script>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/css/bootstrap.min.css">
     <script
     src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <script>
@@ -15,7 +16,7 @@
         var _rev= this.value;
         var citta= this.name;
         console.log("Ecco la citta: "+citta);
-        del_travel(id,_rev,citta);
+        del_travel(id,_rev,citta).then((x)=>window.location.reload());
         //setTimeout(location.reload(true),500);
       });
       $(".up").click(function(){
@@ -23,7 +24,7 @@
         var _rev= this.value;
         var citta= this.name;
         console.log("Ecco la citta: "+citta);
-        update_travel(id, _rev,citta);
+        update_travel(id, _rev,citta).then((x)=>window.location.reload());
         //setTimeout(location.reload(true),500);
       });
     });
@@ -32,23 +33,22 @@
   <body>
     <div class="background"></div>
     <section class="site">
-      <section class="navigation">
-          <nav>
-            <a href="/">Home</a>
-            <a href="viaggi">I miei viaggi</a>
-            <a href="contatti">Contatti</a>
-            <% if(cookie==null){ %>
-              <a href="login">Login</a>
-              <a href="registrazione">Registrazione</a>
-                <% } %>
-                
-            <% if(cookie) { %>
-                  <a href="login/logout">Logout</a>
-    
-                <% } %>
-            
-          </nav>
-      </section>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <a class="navbar-brand" href="/">Home</a>
+          <a class="navbar-brand" href="/viaggi">I miei viaggi</a>
+          <a class="navbar-brand" href="/contatti">Contatti</a>
+          <% if(cookie==null){ %>
+            <a class="navbar-brand" href="/registrazione">Registrazione</a>
+            <a class="navbar-brand" href="/login">Login</a>
+          <% } %>
+
+          <% if(cookie) { %>
+            <a class="navbar-brand" href="login/logout">Logout</a>
+
+          <% } %>
+        </div>
+      </nav>
       <div id="first">
         <h1>Benvenuto nella tua WishList!</h1>
         <p>Chi non ha un viaggio che ha sempre sognato di fare, una meta preferita o una città che ha sempre voluto visitare. Questo è il posto giusto per annotarli! Inserisci qui le vacanze dei tuoi sogni e quando le avrai finalmente fatte ti basterà cliccare su "completa" per inserirla automaticamente tra i viaggi effettuati!</p>
@@ -89,7 +89,7 @@
         </ul>
       </div>
       <section id="media">
-        <h1">Qui potrai vedere le foto della città nella tua lista!</h1>
+        <h1>Qui potrai vedere le foto della città nella tua lista!</h1>
         <div id="immagini">
           <% if(name.length!=0){ %>
               <% name.forEach((doc)=>{ %>

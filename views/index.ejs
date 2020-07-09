@@ -6,6 +6,7 @@
     <script type="text/javascript" src='/javascripts/enter.js'></script>
     <link rel='stylesheet' href='/stylesheets/index.css' />
     <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" type="text/css" href="../stylesheets/css/bootstrap.min.css">
   </head>
   <body>
     <body>
@@ -18,22 +19,22 @@
       </section>
 
       <section class = "main-site">
-        <section class="navigation">
-            <nav>
-              <a href="/wishlist">Whishlist</a>
-              <a href="/viaggi">I miei viaggi</a>
-              <a href="/contatti">Contatti</a>
-              <% if(cookie==null){ %>
-                <a href="login">Login</a>
-                <a href="registrazione">Registrazione</a>
-              <% } %>
-                  
-              <% if(cookie) { %>
-                    <a href="login/logout">Logout</a>
-      
-              <% } %>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+              <div class="container">
+                <a class="navbar-brand" href="wishlist">Wishlist</a>
+                <a class="navbar-brand" href="/viaggi">I miei viaggi</a>
+                <a class="navbar-brand" href="/contatti">Contatti</a>
+                <% if(cookie==null){ %>
+                <a class="navbar-brand" href="/registrazione">Registrazione</a>
+                <a class="navbar-brand" href="/login">Login</a>
+                <% } %>
+
+                <% if(cookie) { %>
+                <a class="navbar-brand" href="login/logout">Logout</a>
+
+                <% } %>
+              </div>
             </nav>
-        </section>
         <section class="first">
           <article>
             <h1>Qual è la vacanza che fa per te?</h1>

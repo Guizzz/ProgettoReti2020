@@ -4,13 +4,13 @@ const fetch = require("node-fetch");
 const NodeCouchdb = require('node-couchdb');
 const dbName = "citta";
 const viewUrl = "_design/citta/_view/cities";
-var nano = require('nano')('http://admin:biar@localhost:5984');
+var nano = require('nano')('http://admin:Reti2020@localhost:5984');
 const db_viaggi = nano.use('citta');
 
 const couch = new NodeCouchdb({
 auth:{
 user: 'admin',
-password: 'biar'
+password: 'Reti2020'
 }
 });
 
@@ -20,7 +20,7 @@ router.get('/', function(req, res, next) {
     const q = {
       selector: {
         email: { "$eq": req.cookies['username']},
-        
+
       },
       fields: ["_id","citta","lat","lng","email","date","_rev"],
       limit:50
@@ -42,12 +42,11 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/positions', function(req, res) {
-  //console.log("sono qui");
   //console.log(req.cookies['username']);
   const q = {
     selector: {
       email: { "$eq": req.cookies['username']},
-      
+
     },
     fields: [ "citta","lat","lng","email","date",],
     limit:50
@@ -78,6 +77,7 @@ router.post("/add_travel/", async function(req, res){
   const url_pos = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input='+name+'&inputtype=textquery&fields=photos,geometry&key=AIzaSyAx4VHsf6GzeojgnmiZna1ttmRLD1bX_UA';
   const f_res = await fetch(url_pos);
   const json = await f_res.json();
+  var d = new Date();
   // const foto_ref = json.candidates[0].photos[0].photo_reference;
   // const url_foto = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference="+foto_ref+"&key=AIzaSyAx4VHsf6GzeojgnmiZna1ttmRLD1bX_UA";
   // const f_foto = await fetch(url_foto);
@@ -89,7 +89,7 @@ router.post("/add_travel/", async function(req, res){
     const id = name;
     const obj = {
     citta: name,
-    date: 1,
+    date: ""+d.getDate()+"/"+(d.getMonth()+1)+"/"+d.getFullYear(),
     lat: lat,
     lng: lng,
     email: email

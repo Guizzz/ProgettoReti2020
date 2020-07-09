@@ -9,7 +9,7 @@ var db = require('node-couchdb');
 var cookie_parser = require('cookie-parser');
 router.use(cookie_parser());
 var https=require('https');
-var nano = require('nano')('http://admin:biar@localhost:5984');
+var nano = require('nano')('http://admin:Reti2020@localhost:5984');
 var db = nano.use('utenti');
 const db_sessioni= nano.use('sessioni');
 var mail;
@@ -21,13 +21,13 @@ router.get('/', function(req, res, next) {
 });
 
 router.post("/login_utente/", function(req,res,next){
-  
+
   const email_= req.body.username;
   const password_= req.body.password;
   //console.log("email:" + email_);
-  const q = 
+  const q =
   {
-    selector: 
+    selector:
     {
       email: { "$eq": email_}
     },
@@ -78,12 +78,12 @@ router.post("/login_utente/", function(req,res,next){
 router.get("/facebook",function(req,res){
   flag=true;
   res.redirect("https://www.facebook.com/v7.0/dialog/oauth?client_id=545913572776620&redirect_uri=http://localhost:3000/login/code&state={'ciao'}&response_type=code");
-        
+
 });
 
 router.get('/code',function(req,res){
   //res.send('code: '+req.query.code);
-  
+
   if(flag){
       code= req.query.code;
       res.redirect("http://localhost:3000/login/token");
@@ -107,17 +107,17 @@ router.get('/token',async function(req,res){
       res1.on('data',async function(chunk){
           console.log(JSON.parse(chunk));
           token=JSON.parse(chunk).access_token;
-          res.redirect("http://localhost:3000/login/code"); 
+          res.redirect("http://localhost:3000/login/code");
       })
   });
-      
-         
-  
-  
- 
+
+
+
+
+
 });
 router.get('/token_info',async function(req,res){
- 
+
   https.get("https://graph.facebook.com/v7.0/me?access_token="+token,function(res1){
           res1.on('data',function(chunk){
               console.log(JSON.parse(chunk).id);
@@ -125,8 +125,8 @@ router.get('/token_info',async function(req,res){
               res.redirect("http://localhost:3000/login/getuser");
           })
   });
-  
-  
+
+
 });
 
 router.get('/getuser',function(req,res1){
@@ -142,12 +142,12 @@ router.get('/getuser',function(req,res1){
 
   //res.send(req.cookies['username']);
 });
-router.get('/login_facebook',function(req,res){ 
+router.get('/login_facebook',function(req,res){
   const q = {
     selector: {
       email: { "$eq": req.cookies['username']}
-     
-     
+
+
     },
     fields: [ "email"],
     limit:50
@@ -175,8 +175,8 @@ router.get("/logout",function(req,res){
   const q = {
     selector: {
       email: { "$eq": req.cookies['username']}
-     
-     
+
+
     },
     fields: [ "_id","_rev"],
     limit:50
@@ -185,24 +185,24 @@ router.get("/logout",function(req,res){
     if(body.docs.length==1){
       console.log(body.docs)
       body.docs.forEach((doc)=>{
-        
+
       db_sessioni.destroy(doc._id,doc._rev).then((body) => {
         console.log(body);
         res.clearCookie('username');
         res.redirect("/");
       });
     });
-      
+
     }
     else{
       console.log(body);
       res.redirect('/');
     }
-    
-      
+
+
        });
 
-    
+
   });
 
 
