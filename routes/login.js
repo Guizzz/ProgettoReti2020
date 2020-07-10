@@ -9,7 +9,8 @@ var db = require('node-couchdb');
 var cookie_parser = require('cookie-parser');
 router.use(cookie_parser());
 var https=require('https');
-var nano = require('nano')('http://admin:Reti2020@localhost:5984');
+require('dotenv').config();
+var nano = require('nano')('http://'+process.env.USR+':'+process.env.PSW+'@localhost:5984');
 var db = nano.use('utenti');
 const db_sessioni= nano.use('sessioni');
 var mail;
@@ -37,7 +38,7 @@ router.post("/login_utente/", function(req,res,next){
 
   db_sessioni.find(q).then((body) => {
     if(body.docs.length==1){
-      console.log(body.docs.length);
+      //console.log(body.docs.length);
       res.cookie('username',email_);
       //res.send("Utente già loggato, vai alla <a href='http://localhost:3000'>Home</a>");
       res.redirect("/viaggi");
@@ -55,7 +56,7 @@ router.post("/login_utente/", function(req,res,next){
         if(body.docs.length==1){
           //console.log(body.docs.length);
           db_sessioni.insert({  email : email_}).then((body) => {
-            console.log(body);
+            //console.log(body);
             if(body.ok){
               res.cookie('username',email_);
               //res.redirect("http://localhost:3000/viaggi");
@@ -90,7 +91,7 @@ router.get('/code',function(req,res){
   }
   else{
 
-      console.log(token);
+     //console.log(token);
      res.redirect("http://localhost:3000/login/token_info");
   }
 });
@@ -102,10 +103,10 @@ router.get('/token',async function(req,res){
   var redirect_uri= "http://localhost:3000/login/code";
   var client_secret="9a9a2e02b26b29ff8f735abace483f80";
   flag=false;
-  console.log(flag);
+  //console.log(flag);
   const fb= await https.get("https://graph.facebook.com/v7.0/oauth/access_token?client_id="+client_id+"&redirect_uri="+redirect_uri+"&client_secret="+client_secret+"&code="+code, async function(res1){
       res1.on('data',async function(chunk){
-          console.log(JSON.parse(chunk));
+          //console.log(JSON.parse(chunk));
           token=JSON.parse(chunk).access_token;
           res.redirect("http://localhost:3000/login/code");
       })

@@ -1,11 +1,14 @@
 var express = require('express');
+require('dotenv').config();
 var router = express.Router();
-var nano = require('nano')('http://admin:Reti2020@localhost:5984');
+
+var nano = require('nano')('http://'+process.env.USR+':'+process.env.PSW+'@localhost:5984');
 const db = nano.use('utenti');
+/*
 db.info().then((body) => {
   console.log('got database info', body);
 });
-/*db.insert({ nome: 'Nello', happy: true }).then((body) => {
+db.insert({ nome: 'Nello', happy: true }).then((body) => {
   console.log(body)
 })
 db.insert({ nome: 'Paolo', happy: true }).then((body) => {
@@ -13,7 +16,7 @@ db.insert({ nome: 'Paolo', happy: true }).then((body) => {
 })
 db.insert({ nome: 'Elisa', happy: false }).then((body) => {
   console.log(body)
-})*/
+})
 db.list().then((body) => {
 
   body.rows.forEach((doc) => {
@@ -35,7 +38,7 @@ db.find(q).then((body) => {
     console.log(doc.nome);
 });
 });
-
+*/
 
 
 /* GET home page. */

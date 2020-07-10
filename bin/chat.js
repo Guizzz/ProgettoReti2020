@@ -23,13 +23,16 @@ function htmlEntities(str)
 
 function findConFromUsr(user)
 {
-    for (var i = 0; i < clients.length; i++){
+    for (var i = 0; i < clients.length; i++)
+    {
         // look for the entry with a matching `code` value
         if (clients[i].usr == user)
         {
             return clients[i].con;
         }
-      }
+    }
+
+    return -1;
 }
 
 function chat(request) 
@@ -80,22 +83,37 @@ function chat(request)
             var mex = JSON.parse(message.utf8Data);
 
             console.log((new Date()) + ' Received Message from ' + userName + ' to '+mex.to+' : ' + mex.message);
-            
-            // we want to keep history of all sent messages
-            var obj = 
+            toCon = findConFromUsr(mex.to);
+            var json,obj;
+            if(toCon != -1)
             {
-                time: (new Date()).getTime(),
-                text: htmlEntities(mex.message),
-                author: userName,
-                color: userColor
-            };
-            history.push(obj);
-            history = history.slice(-100);
+                // we want to keep history of all sent messages
+                obj = 
+                {
+                    time: (new Date()).getTime(),
+                    text: htmlEntities(mex.message),
+                    author: userName,
+                    color: userColor
+                };
+                history.push(obj);
+                history = history.slice(-100);
 
-            // broadcast message to all connected clients
-            var json = JSON.stringify({ type:'message', data: obj });
+                json = JSON.stringify({ type:'message', data: obj });
 
-            findConFromUsr(mex.to).sendUTF(json);
+                toCon.sendUTF(json);
+            }   
+            else
+            {
+                obj = 
+                {
+                    time: (new Date()).getTime(),
+                    text: htmlEntities("ERROR: USER IS NOT ONLINE"),
+                    author: "Server",
+                    color: "grey"
+                };
+                json = JSON.stringify({ type:'message', data: obj });
+            }
+            
             clients[index].con.sendUTF(json);
         }
     }

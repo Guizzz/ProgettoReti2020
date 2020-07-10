@@ -2,7 +2,9 @@ var express = require('express');
 var router = express.Router();
 const fetch = require("node-fetch");
 const NodeCouchdb = require('node-couchdb');
-var nano = require('nano')('http://admin:Reti2020@localhost:5984');
+require('dotenv').config();
+var nano = require('nano')('http://'+process.env.USR+':'+process.env.PSW+'@localhost:5984');
+
 const db_viaggi = nano.use('citta');
 const couch = new NodeCouchdb({
 auth:{

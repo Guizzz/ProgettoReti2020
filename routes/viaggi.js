@@ -4,7 +4,8 @@ const fetch = require("node-fetch");
 const NodeCouchdb = require('node-couchdb');
 const dbName = "citta";
 const viewUrl = "_design/citta/_view/cities";
-var nano = require('nano')('http://admin:Reti2020@localhost:5984');
+require('dotenv').config();
+var nano = require('nano')('http://'+process.env.USR+':'+process.env.PSW+'@localhost:5984');
 const db_viaggi = nano.use('citta');
 
 const couch = new NodeCouchdb({
