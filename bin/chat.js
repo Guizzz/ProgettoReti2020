@@ -51,11 +51,7 @@ function chat(request)
 
   console.log((new Date()) + ' Connection accepted.');
 
-  // send back chat history
-  if (history.length > 0) 
-  {
-    connection.sendUTF(JSON.stringify( { type: 'history', data: history} ));
-  }
+  
 
   // user sent some message
   connection.on('message', function(message) 
@@ -76,6 +72,23 @@ function chat(request)
             userColor = colors.shift();
             connection.sendUTF(JSON.stringify({ type:'color', data: userColor }));
             console.log((new Date()) + ' User is known as: ' + userName + ' with ' + userColor + ' color.');
+            
+            // send back chat history
+			if (history.length > 0) 
+			{
+			 var myhistory=[];
+			 
+			 for (var i = 0; i < history.length; i++)
+			 {
+				 console.log(history[i]);
+				// look for the entry with a matching `code` value
+				if (history[i].author == userName || history[i].receiver == userName )
+				{
+					myhistory.push(history[i]);
+				}
+			 }
+			 connection.sendUTF(JSON.stringify( { type: 'history', data: myhistory} ));
+			}
 
         } 
         else 
@@ -93,6 +106,7 @@ function chat(request)
                     time: (new Date()).getTime(),
                     text: htmlEntities(mex.message),
                     author: userName,
+                    receiver: mex.to,
                     color: userColor
                 };
                 history.push(obj);
