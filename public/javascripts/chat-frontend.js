@@ -15,7 +15,7 @@ $(function () {
     // my name sent to the server
     var myName = username;
 
-    console.log(username);
+    //console.log(username);
     // if user is running mozilla then use it's built-in WebSocket
     window.WebSocket = window.WebSocket || window.MozWebSocket;
 
@@ -95,7 +95,7 @@ $(function () {
             var msg = 
               {
                   message: $(this).val(),
-                  to: To,
+                  to: invia.val(),
               };
 
             //var msg = $(this).val();
@@ -111,7 +111,7 @@ $(function () {
         }
     });
 
-    invia.keydown(function(e) 
+    /*invia.keydown(function(e) 
     {
         if (e.keyCode === 13)
         {
@@ -119,7 +119,7 @@ $(function () {
             invia.attr('disabled', 'disabled');
             input.removeAttr('disabled');
         }
-    });
+    });*/
 
     /**
      * This method is optional. If the server wasn't able to respond to the

@@ -80,7 +80,7 @@ function chat(request)
 			 
 			 for (var i = 0; i < history.length; i++)
 			 {
-				 console.log(history[i]);
+				 //console.log(history[i]);
 				// look for the entry with a matching `code` value
 				if (history[i].author == userName || history[i].receiver == userName )
 				{
