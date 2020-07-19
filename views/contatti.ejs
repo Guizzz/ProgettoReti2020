@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Contatti</title>
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="/stylesheets/contatti.css">
+    <link rel="stylesheet" type="text/css" href="../stylesheets/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="background"></div>
+    <section class="site">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <a class="navbar-brand" href="/">Home</a>
+          <a class="navbar-brand" href="/wishlist">WishList</a>
+          <a class="navbar-brand" href="/viaggi">I miei viaggi</a>
+          <% if(cookie==null){ %>
+            <a class="navbar-brand" href="/registrazione">Registrazione</a>
+            <a class="navbar-brand" href="/login">Login</a>
+          <% } %>
+
+          <% if(cookie) { %>
+            <a class="navbar-brand" href="/chat">Chat</a>
+            <a class="navbar-brand" href="login/logout">Logout</a>
+
+          <% } %>
+        </div>
+      </nav>
+      <section id="contatti">
+        <h1>Chi siamo?</h1>
+        <p>Siamo studenti al terzo anno di Ingegneria informatica presso l'università "La Sapienza" di Roma</p>
+        <h1>Come contattarci?</h1>
+        <p>
+          I nostri indirizzi mail sono: 
+          <li>castaldo.1794724@studenti.uniroma1.it</li>
+          <li>caperna.1810609@studenti.uniroma1.it</li>
+          <li>guizzaro.1812828@studenti.uniroma1.it</li>
+        </p>
+        <h1>Seguici sui social!</h3>
+        <div id="social">
+          <img src="../images/facebook.png" alt="">
+          <img src="../images/twitter.png" alt="">
+          <img src="../images/instagram.png" alt="">
+        </div>
+      </section>
+
+    </section>
+  </body>
+</html>

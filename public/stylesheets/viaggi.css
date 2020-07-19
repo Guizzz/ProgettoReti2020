@@ -1,0 +1,31 @@
+.mappa {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.mappa button {
+  height: 30px;
+  width: 200px;
+  background: transparent;
+  font-size: 30px;
+  border: none;
+  align-self: center;
+  margin: 10px;
+}
+
+.mappa button:hover {
+  opacity: 0.6;
+}
+#map {
+  margin: 10px;
+  align-self: center;
+  height: 60vh;
+  width: 60vw;
+  padding-bottom: 10px;
+  /* visibility: hidden; */
+}
+
+.travel {
+  display: flex;
+  flex-direction: column;
+}

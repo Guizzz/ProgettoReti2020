@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+		<link rel="stylesheet" href="stylesheets/style.css">
+		<link rel="stylesheet" type="text/css" href="../stylesheets/css/bootstrap.min.css">
+        <title>Chat</title>
+
+        <style>
+        div { width:50%; margin-left:auto; margin-right:auto;}
+        #content { padding:5px; background:#ddd; border-radius:5px; overflow-y: scroll;
+                   border:1px solid #CCC; margin-top:10px; height: 160px; }
+        #input { border-radius:2px; border:1px solid #ccc;
+                 margin-top:10px; padding:5px; width:100%;  }
+        #status { width:100%; display:block; float:left; margin-top:15px; }
+        #invia { width:88px; display:block; float:left; margin-top:15px; }
+        #send { border-radius:2px; border:1px solid #ccc;
+                 margin-top:10px; padding:5px; width:400px;  }
+        </style>
+    </head>
+    <body>
+		<div class="background"></div>
+			
+			<section class="site">
+				<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+					<div class="container">
+					  <a class="navbar-brand" href="/">Home</a>
+					  <a class="navbar-brand" href="/wishlist">WishList</a>
+					  <a class="navbar-brand" href="/viaggi">I miei viaggi</a>
+					  <a class="navbar-brand" href="/contatti">Contatti</a>
+					  <% if(cookie==null){ %>
+						<a class="navbar-brand" href="/registrazione">Registrazione</a>
+						<a class="navbar-brand" href="/login">Login</a>
+					  <% } %>
+
+					  <% if(cookie) { %>
+						<a class="navbar-brand" href="login/logout">Logout</a>
+					  <% } %>
+					</div>
+				</nav>
+				<div><h3>Parla con altri viaggiatori, e fatti raccontare le loro esperienze!</h3></div>
+				<div id="content"></div>
+				<div>
+					<span id="status"><%= cookie %></span>
+					<input type="text" id="input"  />
+				</div>
+
+				<div>
+				<span id="invia">Invia a:</span>
+				
+				<select id="send">
+					<% clients.forEach((doc)=>{ %>
+						<option value="<%=doc.email%>"> <%=doc.email%></option>
+					<% }); %>
+				</select>
+			</div>
+		</section>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="../javascripts/chat-frontend.js"></script>
+    </body>
+</html>

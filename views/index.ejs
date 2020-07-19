@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src='/javascripts/enter.js'></script>
+    <link rel='stylesheet' href='/stylesheets/index.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" type="text/css" href="../stylesheets/css/bootstrap.min.css">
+  </head>
+  <body>
+    <body>
+      <div class = "main_background"></div>
+      <section class="entry">
+        <h1>Travel The World</h1>
+        <p> Benvenuto in Travel the world! Su questo sito potrai tenere traccia dei tuoi viaggi, creare una tua wishlist personalizzata e vedere le mete più gettonate dagli utenti. Entra nel sito ed inizia a viaggiare!  </p>
+
+        <button type="button" name="button" onclick="enter();">Entra nel sito</button>
+      </section>
+
+      <section class = "main-site">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+              <div class="container">
+                <a class="navbar-brand" href="wishlist">Wishlist</a>
+                <a class="navbar-brand" href="/viaggi">I miei viaggi</a>
+                <a class="navbar-brand" href="/contatti">Contatti</a>
+                <% if(cookie==null){ %>
+                <a class="navbar-brand" href="/registrazione">Registrazione</a>
+                <a class="navbar-brand" href="/login">Login</a>
+                <% } %>
+
+                <% if(cookie) { %>
+                  <a class="navbar-brand" href="/chat">Chat</a>
+                <a class="navbar-brand" href="login/logout">Logout</a>
+
+                <% } %>
+              </div>
+            </nav>
+        <section class="first">
+          <article>
+            <h1>Qual è la vacanza che fa per te?</h1>
+            <p>Ogni anno sei alla ricerca della meta perfetta? </p>
+          </article>
+      </section>
+      <section id="info">
+        <article>
+          <figure></figure>
+          <div>
+            <h2>Scopri le città d'arte</h2>
+            <p>Storia,arte ma anche capolavori di architettura moderna sono tra le caratteristiche che ti accompagneranno in un viaggio tra le grandi città.
+              Vivrai una totale immersione nella cultura del luogo.Splendide passeggiate tra monumenti e grattacieli arricchiranno il tuo soggiorno.
+              Ideale per chi è in cerca di relax ma anche di un arricchimento personale.</p>
+          </div>
+        </article>
+        <article>
+          <figure></figure>
+          <div>
+            <h2>Concediti una vacanza al mare</h2>
+           <p>"Spiaggia,sole e acque cristalline. Rilassarsi comodamente distesi in questo scenario non ha prezzo.
+             Oltre a gustare un bagno rinfrescante di giorno potrai ammirare la splendida vista del sole che tramonta sul mare di sera.
+           Se stai cercando un po' di sano relax da goderti da solo o con la famiglia, questa è la vacanza che fa per te!</p>
+          </div>
+        </article>
+        <article>
+          <figure></figure>
+          <div>
+            <h2>Goditi il divertimento</h2>
+            <p>Sei in cerca di una vancanza memorabile, senza sosta e votata al puro divertimento?
+               Dovresti dare un'occhiata alle grandi città di notte. La trasformazione delle strade tranquille e silenziose nei centri della movida notturna ti sorprenderà.
+               Se non hai paura di perdere qualche ora di sonno, non sprecare l'occasione di vivere questa esperienza!</p>
+          </div>
+        </article>
+      </section>
+
+    </section>
+  </body>
+</html>

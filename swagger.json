@@ -1,0 +1,110 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Documentazione per servizi offerti dal sito",
+    "version": "1.0.0",
+    "title": "Travel the world",
+    "contact": {
+      "email": "TravelTheWorld@gmail.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/api/get_coords/{city}": {
+      "get": {
+        "summary": "Ritorna le coordinate della città cercata",
+        "parameters": [
+          {
+            "name": "city",
+            "in": "path",
+            "description": "citta desiderata",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "NOT FOUND"
+          }
+        }
+      }
+    },
+    "/api/get_travel/{email}": {
+      "get": {
+        "summary": "Restituisce i viaggi effettuati da un utente con relativa data",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "description": "email dell'utente",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "NOT FOUND"
+          }
+        }
+      }
+    },
+    "/api/get_wish/{email}": {
+      "get": {
+        "summary": "Restituisce la lista dei desideri dell'utente",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "description": "email dell'utente",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "NOT FOUND"
+          }
+        }
+      }
+    },
+    "/api/get_url/{citta}": {
+      "get": {
+        "summary": "Restituisce l'url della foto della citta desiderata",
+        "parameters": [
+          {
+            "name": "citta",
+            "in": "path",
+            "description": "citta desiderata",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "NOT FOUND"
+          }
+        }
+      }
+    }
+  }
+}

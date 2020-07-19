@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>I miei viaggi</title>
+    <link rel="stylesheet" href="stylesheets/style.css">
+    <link rel="stylesheet" href="stylesheets/viaggi.css">
+    <script type="text/javascript" src = "javascripts/viaggi.js"></script>
+    <script type="text/javascript" src = "javascripts/map.js"></script>
+    <link rel="stylesheet" type="text/css" href="../stylesheets/css/bootstrap.min.css">
+    <script
+    src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script>
+      //location.reload(true);
+      $(document).ready(function(){
+        get_pos();
+        $(".del").click(function(){
+          var id = this.id;
+          var _rev= this.value;
+          var citta= this.name;
+          console.log("Ecco la citta: "+citta);
+          del_travel(id,_rev,citta).then((x)=>window.location.reload());
+          //setTimeout(location.reload(true),500);
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <div class="background"></div>
+    <section class="site">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+          <a class="navbar-brand" href="/">Home</a>
+          <a class="navbar-brand" href="/wishlist">WishList</a>
+          <a class="navbar-brand" href="/contatti">Contatti</a>
+          <% if(cookie==null){ %>
+            <a class="navbar-brand" href="/registrazione">Registrazione</a>
+            <a class="navbar-brand" href="/login">Login</a>
+          <% } %>
+
+          <% if(cookie) { %>
+            <a class="navbar-brand" href="/chat">Chat</a>
+            <a class="navbar-brand" href="login/logout">Logout</a>
+            
+          <% } %>
+        </div>
+      </nav>
+      <section class="first">
+        <h1>I tuoi viaggi!</h1>
+        <p>Qui potrai inserire i viaggi che hai fatto. Ognuno di questi apparirà poi sulla mappa. Cosa aspetti? Prova a completare il mappamondo!</p>
+
+      </section>
+    <section class="mappa">
+      <div id="map"></div>
+    </section>
+      <div class="viaggi">
+        <form class="travel" action="viaggi/add_travel" method="post">
+
+          <input type="text" id="input" name="citta" maxlength="58" onmouseover="viewLabel();" onmouseout="hideLabel();"placeholder="Dove sei già stato?" autocomplete="off">
+          <label id="label">Premi Enter per aggiungere alla lista</label>
+        </form>
+
+
+
+        <ul id= "lista">
+          <% name.forEach((doc)=>{ %>
+            <% if(doc.date != null){ %>
+              <div class="section">
+                <li><%= doc.citta %></li>
+                <div class="sub_section">
+                  <button class="del" type="button" id= "<%= doc._id %>" name="<%= doc.citta %>" value="<%= doc._rev%>">Elimina</button>
+                </div>
+              </div>
+              <% } %>
+          <% }); %>
+        </ul>
+      </div>
+    </section>
+    <script async defer
+      src="https://maps.googleapis.com/maps/api/js?key=<%= API %>&callback=initMap&libraries=geometry,places"></script>
+
+  </body>
+</html>
